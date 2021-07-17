@@ -1,0 +1,23 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Progaurd" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#63AFB2</item>
+        <item name="colorPrimaryVariant">#6088A3</item>
+        <item name="colorOnPrimary">#FBF9FC</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">#FBF9FC</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">#63B3B3</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:navigationBarColor">#000000</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">#FBF9FC</item>
+    </style>
+</resources>
