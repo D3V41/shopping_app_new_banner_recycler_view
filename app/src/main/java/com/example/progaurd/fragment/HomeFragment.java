@@ -22,9 +22,11 @@ import android.widget.TextView;
 import com.example.progaurd.R;
 import com.example.progaurd.adapter.CategoryAdapter;
 import com.example.progaurd.adapter.GridProductLayoutAdapter;
+import com.example.progaurd.adapter.HomePageAdapter;
 import com.example.progaurd.adapter.HorizontalProductsScrollAdapter;
 import com.example.progaurd.adapter.SliderAdapter;
 import com.example.progaurd.model.CategoryModel;
+import com.example.progaurd.model.HomePageModel;
 import com.example.progaurd.model.HorizontalProductsScrollModel;
 import com.example.progaurd.model.SliderModel;
 
@@ -50,7 +52,7 @@ public class HomeFragment extends Fragment {
     private int currentPage = 2;
 
     private Timer timer;
-    final private long DELAY_TIME = 3000;
+    final private long DELAY_TIME = 2000;
     final private long PERIOD_TIME = 1000;
     ////// banner slider
 
@@ -135,7 +137,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                if (state == ViewPager.SCROLL_STATE_IDLE) {
                     pageLopper();
                 }
             }
@@ -196,10 +198,28 @@ public class HomeFragment extends Fragment {
         ////////// grid product layout
 
         ///////////////////////
+
         RecyclerView testing = view.findViewById(R.id.testing);
+
+        List<HomePageModel> homePageModelList = new ArrayList<HomePageModel>();
+        homePageModelList.add(new HomePageModel(0,sliderModelList));
+        homePageModelList.add(new HomePageModel(2,"Deals of the DAY!",horizontalProductsScrollModelList));
+        homePageModelList.add(new HomePageModel(1,R.drawable.stripad));
+        homePageModelList.add(new HomePageModel(3,"Trending",horizontalProductsScrollModelList));
+        homePageModelList.add(new HomePageModel(2,"Offers!",horizontalProductsScrollModelList));
+        homePageModelList.add(new HomePageModel(1,R.drawable.stripad));
+        homePageModelList.add(new HomePageModel(3,"Best for YOU!",horizontalProductsScrollModelList));
+        homePageModelList.add(new HomePageModel(2,"Big billion day!",horizontalProductsScrollModelList));
+        homePageModelList.add(new HomePageModel(3,"Today's offer",horizontalProductsScrollModelList));
+
+        HomePageAdapter adapter = new HomePageAdapter(homePageModelList);
         LinearLayoutManager testingLinearLayoutManager = new LinearLayoutManager(getContext());
-        testingLinearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        testingLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         testing.setLayoutManager(testingLinearLayoutManager);
+        testing.getLayoutManager().setMeasurementCacheEnabled(false);
+
+        testing.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         ///////////////////////
 
         return view;
