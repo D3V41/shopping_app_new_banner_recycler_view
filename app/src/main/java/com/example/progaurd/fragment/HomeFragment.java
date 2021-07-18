@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.MarginPageTransformer;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -19,18 +17,17 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.progaurd.R;
 import com.example.progaurd.adapter.CategoryAdapter;
 import com.example.progaurd.adapter.GridProductLayoutAdapter;
 import com.example.progaurd.adapter.HomePageAdapter;
 import com.example.progaurd.adapter.HorizontalProductsScrollAdapter;
-import com.example.progaurd.adapter.SliderAdapter;
 import com.example.progaurd.model.CategoryModel;
 import com.example.progaurd.model.HomePageModel;
 import com.example.progaurd.model.HorizontalProductsScrollModel;
-import com.example.progaurd.model.SliderModel;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +44,8 @@ public class HomeFragment extends Fragment {
     private CategoryAdapter categoryAdapter;
 
     /////// banner slider
-    private ViewPager bannerSliderViewPager;
-    private List<SliderModel> sliderModelList;
+    private ImageSlider bannerSlider;
+    private List<SlideModel> sliderModelList;
     private int currentPage = 2;
 
     private Timer timer;
@@ -101,63 +98,16 @@ public class HomeFragment extends Fragment {
         categoryAdapter.notifyDataSetChanged();
 
         //// banner slider
-        bannerSliderViewPager = view.findViewById(R.id.banner_slider_view_pager);
-        sliderModelList = new ArrayList<SliderModel>();
+        bannerSlider = view.findViewById(R.id.banner_slider);
+        sliderModelList = new ArrayList<SlideModel>();
 
-        sliderModelList.add(new SliderModel(R.drawable.ic_home,"#5C4A8A"));
-        sliderModelList.add(new SliderModel(R.drawable.forgot_password,"#5C4A8A"));
-
-        sliderModelList.add(new SliderModel(R.drawable.banner,"#5C4A8A"));
-        sliderModelList.add(new SliderModel(R.drawable.button_selected,"#5C4A8A"));
-        sliderModelList.add(new SliderModel(R.drawable.button_not_selected,"#5C4A8A"));
-        sliderModelList.add(new SliderModel(R.drawable.edittext_background,"#5C4A8A"));
-        sliderModelList.add(new SliderModel(R.drawable.google_btn,"#5C4A8A"));
-        sliderModelList.add(new SliderModel(R.drawable.ic_home,"#5C4A8A"));
-        sliderModelList.add(new SliderModel(R.drawable.forgot_password,"#5C4A8A"));
-
-        sliderModelList.add(new SliderModel(R.drawable.banner,"#5C4A8A"));
-        sliderModelList.add(new SliderModel(R.drawable.button_selected,"#5C4A8A"));
-
-        SliderAdapter sliderAdapter = new SliderAdapter(sliderModelList);
-        bannerSliderViewPager.setAdapter(sliderAdapter);
-        bannerSliderViewPager.setClipToPadding(false);
-        bannerSliderViewPager.setPageMargin(20);
-
-        bannerSliderViewPager.setCurrentItem(currentPage);
-
-        ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                currentPage = position;
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                if (state == ViewPager.SCROLL_STATE_IDLE) {
-                    pageLopper();
-                }
-            }
-
-        };
-        bannerSliderViewPager.addOnPageChangeListener(onPageChangeListener);
-
-        startBannerSlideShow();
-
-        bannerSliderViewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                pageLopper();
-                stopBannerSlideShow();
-                if(event.getAction() == MotionEvent.ACTION_UP){
-                    startBannerSlideShow();
-                }
-                return false;
-            }
-        });
+        sliderModelList.add(new SlideModel(R.drawable.banner, ScaleTypes.CENTER_CROP));
+        sliderModelList.add(new SlideModel(R.drawable.banner,ScaleTypes.CENTER_CROP));
+        sliderModelList.add(new SlideModel(R.drawable.banner,ScaleTypes.CENTER_CROP));
+        sliderModelList.add(new SlideModel(R.drawable.banner,ScaleTypes.CENTER_CROP));
+        sliderModelList.add(new SlideModel(R.drawable.banner,ScaleTypes.CENTER_CROP));
+        sliderModelList.add(new SlideModel(R.drawable.banner,ScaleTypes.CENTER_CROP));
+        sliderModelList.add(new SlideModel(R.drawable.banner,ScaleTypes.CENTER_CROP));
         //// banner slider
 
         ////////// strip ad
@@ -225,41 +175,4 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    //////// banner slider
-    private void pageLopper(){
-        if(currentPage == sliderModelList.size()-2){
-            currentPage = 2;
-            bannerSliderViewPager.setCurrentItem(currentPage,false);
-        }
-        if(currentPage == 1){
-            currentPage = sliderModelList.size()-3;
-            bannerSliderViewPager.setCurrentItem(currentPage,false);
-        }
-
-    }
-
-    private void startBannerSlideShow(){
-        Handler handler = new Handler();
-        Runnable update = new Runnable() {
-            @Override
-            public void run() {
-                if(currentPage >= sliderModelList.size()){
-                    currentPage = 2;
-                }
-                bannerSliderViewPager.setCurrentItem(currentPage++,true);
-            }
-        };
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(update);
-            }
-        },DELAY_TIME,PERIOD_TIME);
-    }
-
-    private void stopBannerSlideShow(){
-        timer.cancel();
-    }
-    //////// banner slider
 }

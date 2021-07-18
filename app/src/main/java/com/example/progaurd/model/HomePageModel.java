@@ -5,6 +5,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.denzcoskun.imageslider.models.SlideModel;
+
 import java.util.List;
 
 public class HomePageModel {
@@ -16,8 +18,8 @@ public class HomePageModel {
     private int type;
 
     /////// banner slider
-    private List<SliderModel> sliderModelList;
-    public HomePageModel(int type, List<SliderModel> sliderModelList) {
+    private List<SlideModel> sliderModelList;
+    public HomePageModel(int type, List<SlideModel> sliderModelList) {
         this.type = type;
         this.sliderModelList = sliderModelList;
     }
@@ -27,10 +29,10 @@ public class HomePageModel {
     public void setType(int type) {
         this.type = type;
     }
-    public List<SliderModel> getSliderModelList() {
+    public List<SlideModel> getSliderModelList() {
         return sliderModelList;
     }
-    public void setSliderModelList(List<SliderModel> sliderModelList) {
+    public void setSliderModelList(List<SlideModel> sliderModelList) {
         this.sliderModelList = sliderModelList;
     }
     /////// banner slider
